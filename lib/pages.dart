@@ -26,8 +26,8 @@ class Page extends StatelessWidget {
   final PageViewModel viewModel;
   final double percentVisible;
 
-  Page({
-    this.viewModel,
+  const Page({
+    @required this.viewModel,
     this.percentVisible = 1.0,
   });
 
