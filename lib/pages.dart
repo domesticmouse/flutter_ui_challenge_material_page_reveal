@@ -37,7 +37,7 @@ class Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        width: double.INFINITY,
+        width: double.infinity,
         color: viewModel.color,
         child: new Opacity(
           opacity: percentVisible,
