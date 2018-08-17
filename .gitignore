@@ -5,6 +5,11 @@
 .packages
 .pub/
 build/
+android/.settings
+android/.project
+android/app/.settings
+android/app/.classpath
+android/app/.project
 ios/.generated/
 packages
 pubspec.lock
