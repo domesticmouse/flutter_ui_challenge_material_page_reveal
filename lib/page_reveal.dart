@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class PageReveal extends StatelessWidget {
-
   final double revealPercent;
   final Widget child;
 
@@ -22,7 +21,6 @@ class PageReveal extends StatelessWidget {
 }
 
 class CircleRevealClipper extends CustomClipper<Rect> {
-
   final double revealPercent;
 
   CircleRevealClipper(
@@ -40,12 +38,12 @@ class CircleRevealClipper extends CustomClipper<Rect> {
     final radius = distanceToCorner * revealPercent;
     final diameter = 2 * radius;
 
-    return new Rect.fromLTWH(epicenter.dx - radius, epicenter.dy - radius, diameter, diameter);
+    return new Rect.fromLTWH(
+        epicenter.dx - radius, epicenter.dy - radius, diameter, diameter);
   }
 
   @override
   bool shouldReclip(CustomClipper<Rect> oldClipper) {
     return true;
   }
-
 }

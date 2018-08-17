@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:material_page_reveal_published/pages.dart';
 
 class PagerIndicator extends StatelessWidget {
-
   final PagerIndicatorViewModel viewModel;
 
   PagerIndicator({
@@ -20,16 +19,19 @@ class PagerIndicator extends StatelessWidget {
       var percentActive;
       if (i == viewModel.activeIndex) {
         percentActive = 1.0 - viewModel.slidePercent;
-      } else if (i == viewModel.activeIndex - 1 && viewModel.slideDirection == SlideDirection.leftToRight) {
+      } else if (i == viewModel.activeIndex - 1 &&
+          viewModel.slideDirection == SlideDirection.leftToRight) {
         percentActive = viewModel.slidePercent;
-      } else if (i == viewModel.activeIndex + 1 && viewModel.slideDirection == SlideDirection.rightToLeft) {
+      } else if (i == viewModel.activeIndex + 1 &&
+          viewModel.slideDirection == SlideDirection.rightToLeft) {
         percentActive = viewModel.slidePercent;
       } else {
         percentActive = 0.0;
       }
 
-      bool isHollow = i > viewModel.activeIndex
-          || (i == viewModel.activeIndex && viewModel.slideDirection == SlideDirection.leftToRight);
+      bool isHollow = i > viewModel.activeIndex ||
+          (i == viewModel.activeIndex &&
+              viewModel.slideDirection == SlideDirection.leftToRight);
 
       bubbles.add(
         new PageBubble(
@@ -44,7 +46,8 @@ class PagerIndicator extends StatelessWidget {
     }
 
     final bubbleWidth = 55.0;
-    final baseTranslation = ((viewModel.pages.length * bubbleWidth) / 2) - (bubbleWidth / 2);
+    final baseTranslation =
+        ((viewModel.pages.length * bubbleWidth) / 2) - (bubbleWidth / 2);
     var translation = baseTranslation - (viewModel.activeIndex * bubbleWidth);
     if (viewModel.slideDirection == SlideDirection.leftToRight) {
       translation += bubbleWidth * viewModel.slidePercent;
@@ -88,7 +91,6 @@ class PagerIndicatorViewModel {
 }
 
 class PageBubble extends StatelessWidget {
-
   final PageBubbleViewModel viewModel;
 
   PageBubble({
@@ -101,17 +103,19 @@ class PageBubble extends StatelessWidget {
       width: 55.0,
       height: 65.0,
       child: new Center(
-        child: new Container (
+        child: new Container(
           width: lerpDouble(20.0, 45.0, viewModel.activePercent),
           height: lerpDouble(20.0, 45.0, viewModel.activePercent),
           decoration: new BoxDecoration(
             shape: BoxShape.circle,
             color: viewModel.isHollow
-                ? const Color(0x88FFFFFF).withAlpha((0x88 * viewModel.activePercent).round())
+                ? const Color(0x88FFFFFF)
+                    .withAlpha((0x88 * viewModel.activePercent).round())
                 : const Color(0x88FFFFFF),
             border: new Border.all(
               color: viewModel.isHollow
-                  ? const Color(0x88FFFFFF).withAlpha((0x88 * (1.0 - viewModel.activePercent)).round())
+                  ? const Color(0x88FFFFFF).withAlpha(
+                      (0x88 * (1.0 - viewModel.activePercent)).round())
                   : Colors.transparent,
               width: 3.0,
             ),
@@ -128,7 +132,6 @@ class PageBubble extends StatelessWidget {
     );
   }
 }
-
 
 class PageBubbleViewModel {
   final String iconAssetPath;

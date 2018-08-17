@@ -6,15 +6,13 @@ final pages = [
       'assets/hotels.png',
       'Hotels',
       'All hotels and hostels are sorted by hospitality rating',
-      'assets/key.png'
-  ),
+      'assets/key.png'),
   new PageViewModel(
       const Color(0xFF65B0B4),
       'assets/banks.png',
       'Banks',
       'We carefully verify all banks before adding them into the app',
-      'assets/wallet.png'
-  ),
+      'assets/wallet.png'),
   new PageViewModel(
     const Color(0xFF9B90BC),
     'assets/stores.png',
@@ -25,7 +23,6 @@ final pages = [
 ];
 
 class Page extends StatelessWidget {
-
   final PageViewModel viewModel;
   final double percentVisible;
 
@@ -45,18 +42,17 @@ class Page extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 new Transform(
-                  transform: new Matrix4.translationValues(0.0, 50.0 * (1.0 - percentVisible), 0.0),
+                  transform: new Matrix4.translationValues(
+                      0.0, 50.0 * (1.0 - percentVisible), 0.0),
                   child: new Padding(
                     padding: new EdgeInsets.only(bottom: 25.0),
-                    child: new Image.asset(
-                        viewModel.heroAssetPath,
-                        width: 200.0,
-                        height: 200.0
-                    ),
+                    child: new Image.asset(viewModel.heroAssetPath,
+                        width: 200.0, height: 200.0),
                   ),
                 ),
                 new Transform(
-                  transform: new Matrix4.translationValues(0.0, 30.0 * (1.0 - percentVisible), 0.0),
+                  transform: new Matrix4.translationValues(
+                      0.0, 30.0 * (1.0 - percentVisible), 0.0),
                   child: new Padding(
                     padding: new EdgeInsets.only(top: 10.0, bottom: 10.0),
                     child: new Text(
@@ -70,7 +66,8 @@ class Page extends StatelessWidget {
                   ),
                 ),
                 new Transform(
-                  transform: new Matrix4.translationValues(0.0, 30.0 * (1.0 - percentVisible), 0.0),
+                  transform: new Matrix4.translationValues(
+                      0.0, 30.0 * (1.0 - percentVisible), 0.0),
                   child: new Padding(
                     padding: new EdgeInsets.only(bottom: 75.0),
                     child: new Text(
@@ -83,10 +80,8 @@ class Page extends StatelessWidget {
                     ),
                   ),
                 ),
-              ]
-          ),
-        )
-    );
+              ]),
+        ));
   }
 }
 
