@@ -6,40 +6,30 @@ import 'package:material_page_reveal_published/page_reveal.dart';
 import 'package:material_page_reveal_published/pager_indicator.dart';
 import 'package:material_page_reveal_published/pages.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material Page Reveal',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Material Page Reveal',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  StreamController<SlideUpdate> slideUpdateStream;
-  AnimatedPageDragger animatedPageDragger;
-
-  int activeIndex = 0;
-  int nextPageIndex = 0;
-  SlideDirection slideDirection = SlideDirection.none;
-  double slidePercent = 0.0;
-
   _MyHomePageState() {
-    slideUpdateStream = new StreamController<SlideUpdate>();
+    slideUpdateStream = StreamController<SlideUpdate>();
 
-    slideUpdateStream.stream.listen((SlideUpdate event) {
+    slideUpdateStream.stream.listen((event) {
       setState(() {
         if (event.updateType == UpdateType.dragging) {
           print('Sliding ${event.direction} at ${event.slidePercent}');
@@ -56,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         } else if (event.updateType == UpdateType.doneDragging) {
           print('Done dragging.');
           if (slidePercent > 0.5) {
-            animatedPageDragger = new AnimatedPageDragger(
+            animatedPageDragger = AnimatedPageDragger(
               slideDirection: slideDirection,
               transitionGoal: TransitionGoal.open,
               slidePercent: slidePercent,
@@ -64,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               vsync: this,
             );
           } else {
-            animatedPageDragger = new AnimatedPageDragger(
+            animatedPageDragger = AnimatedPageDragger(
               slideDirection: slideDirection,
               transitionGoal: TransitionGoal.close,
               slidePercent: slidePercent,
@@ -93,37 +83,49 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
+  StreamController<SlideUpdate> slideUpdateStream;
+  AnimatedPageDragger animatedPageDragger;
+
+  int activeIndex = 0;
+  int nextPageIndex = 0;
+  SlideDirection slideDirection = SlideDirection.none;
+  double slidePercent = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Stack(
-        children: [
-          new Page(
-            viewModel: pages[activeIndex],
-            percentVisible: 1.0,
-          ),
-          new PageReveal(
-            revealPercent: slidePercent,
-            child: new Page(
-              viewModel: pages[nextPageIndex],
-              percentVisible: slidePercent,
-            ),
-          ),
-          new PagerIndicator(
-            viewModel: new PagerIndicatorViewModel(
-              pages,
-              activeIndex,
-              slideDirection,
-              slidePercent,
-            ),
-          ),
-          new PageDragger(
-            canDragLeftToRight: activeIndex > 0,
-            canDragRightToLeft: activeIndex < pages.length - 1,
-            slideUpdateStream: this.slideUpdateStream,
-          ),
-        ],
-      ),
-    );
+  void dispose() {
+    slideUpdateStream.close();
+    super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: Stack(
+          children: [
+            Page(
+              viewModel: pages[activeIndex],
+              percentVisible: 1,
+            ),
+            PageReveal(
+              revealPercent: slidePercent,
+              child: Page(
+                viewModel: pages[nextPageIndex],
+                percentVisible: slidePercent,
+              ),
+            ),
+            PagerIndicator(
+              viewModel: PagerIndicatorViewModel(
+                pages,
+                activeIndex,
+                slideDirection,
+                slidePercent,
+              ),
+            ),
+            PageDragger(
+              canDragLeftToRight: activeIndex > 0,
+              canDragRightToLeft: activeIndex < pages.length - 1,
+              slideUpdateStream: slideUpdateStream,
+            ),
+          ],
+        ),
+      );
 }

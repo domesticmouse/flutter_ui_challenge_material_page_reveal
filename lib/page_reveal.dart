@@ -3,47 +3,44 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class PageReveal extends StatelessWidget {
-  final double revealPercent;
-  final Widget child;
-
-  PageReveal({
+  const PageReveal({
     @required this.revealPercent,
     this.child,
   });
 
+  final double revealPercent;
+  final Widget child;
+
   @override
-  Widget build(BuildContext context) {
-    return new ClipOval(
-      clipper: new CircleRevealClipper(revealPercent),
+  Widget build(BuildContext context) => ClipOval(
+      clipper: CircleRevealClipper(revealPercent),
       child: child,
     );
-  }
 }
 
 class CircleRevealClipper extends CustomClipper<Rect> {
-  final double revealPercent;
-
-  CircleRevealClipper(
+  const CircleRevealClipper(
     this.revealPercent,
   );
 
+  final double revealPercent;
+
   @override
   Rect getClip(Size size) {
-    final epicenter = new Offset(size.width / 2, size.height * 0.9);
+    final epicenter = Offset(size.width / 2, size.height * 0.9);
 
-    // Calculate distance from epicenter to the top left corner to make sure we fill the screen.
-    double theta = atan(epicenter.dy / epicenter.dx);
+    // Calculate distance from epicenter to the top left corner to 
+    // make sure we fill the screen.
+    final theta = atan(epicenter.dy / epicenter.dx);
     final distanceToCorner = epicenter.dy / sin(theta);
 
     final radius = distanceToCorner * revealPercent;
     final diameter = 2 * radius;
 
-    return new Rect.fromLTWH(
+    return Rect.fromLTWH(
         epicenter.dx - radius, epicenter.dy - radius, diameter, diameter);
   }
 
   @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) {
-    return true;
-  }
+  bool shouldReclip(CustomClipper<Rect> oldClipper) => true;
 }
