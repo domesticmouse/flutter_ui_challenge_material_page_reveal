@@ -13,9 +13,9 @@ class PageReveal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ClipOval(
-      clipper: CircleRevealClipper(revealPercent),
-      child: child,
-    );
+        clipper: CircleRevealClipper(revealPercent),
+        child: child,
+      );
 }
 
 class CircleRevealClipper extends CustomClipper<Rect> {
@@ -29,7 +29,7 @@ class CircleRevealClipper extends CustomClipper<Rect> {
   Rect getClip(Size size) {
     final epicenter = Offset(size.width / 2, size.height * 0.9);
 
-    // Calculate distance from epicenter to the top left corner to 
+    // Calculate distance from epicenter to the top left corner to
     // make sure we fill the screen.
     final theta = atan(epicenter.dy / epicenter.dx);
     final distanceToCorner = epicenter.dy / sin(theta);
