@@ -135,6 +135,7 @@ class PageBubbleViewModel {
   const PageBubbleViewModel(
     this.iconAssetPath,
     this.color,
+    // ignore: avoid_positional_boolean_parameters
     this.isHollow,
     this.activePercent,
   );

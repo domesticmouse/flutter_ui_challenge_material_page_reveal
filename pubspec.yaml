@@ -1,6 +1,7 @@
 name: material_page_reveal_published
 description: UI Challenge that reveals pages with a material effect.
-
+environment:
+  sdk: '>=2.3.0-dev.0.5 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
